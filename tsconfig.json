@@ -1,0 +1,23 @@
+{
+    "compilerOptions": {
+      "outDir": "./dist",
+      "allowJs": true,
+      "target": "es5",
+      "jsx": "react",
+      "noImplicitAny": true,
+      "module": "ESNext",
+      "moduleResolution": "node",
+      "sourceMap": true,
+      "noEmit": true,
+      "experimentalDecorators": true,
+      "allowSyntheticDefaultImports": true,
+      "paths": {
+            "@client/*": ["./src/client/*"],
+            "@server/*":["./src/server/*"],
+            "@store/*": ["./src/store/*"],
+            "@component/*": ["./src/component/*"],
+            "@type/*": ["./src/type/*"]
+        },
+    },
+    "include": ["./src/**/*"]
+  }
