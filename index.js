@@ -3,7 +3,7 @@ const { BaseStore } = require('./dist/BaseStore');
 const { appDecrator } = require('./dist/appDecorator');
 
 module.exports = {
-    RootStore,
+    BaseRootStore: RootStore,
     BaseStore,
     appDecrator
 };

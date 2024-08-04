@@ -9,7 +9,9 @@ module.exports = {
     output: {
       filename: "[name].js",
       path: resolvePath('dist'),
-      clean: true
+      clean: true,
+      library: "react-mobx-framework",
+      libraryTarget: "umd",
     },
     // devtool: "source-map",
     resolve: {
