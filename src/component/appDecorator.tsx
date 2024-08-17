@@ -73,6 +73,6 @@ export function appDecorator<T extends RootStore = RootStore>(RootStores: IObj<a
         }
       }
   
-      return App;
+      return observer(App);
     };
   }

@@ -1,4 +1,4 @@
-import { toJS, runInAction, makeAutoObservable } from 'mobx';
+import { toJS, runInAction, makeObservable, observable, action } from 'mobx';
 import { createClientContext } from '../client/createContext';
 
 /**
@@ -65,13 +65,17 @@ function deepAssign (target: any, source: any): void {
 
 export class RootStore {
     constructor() {
-        makeAutoObservable(this);
+        makeObservable(this, {
+            isServerRendered: observable,
+            isFinishInitLoading: observable,
+            finishInitLoading: action,
+            finishServerRender: action,
+            initClientData: action,
+            initServerData: action,
+            initDataCallback: action,
+            prepareClientData: action
+        });
     }
-
-  /**
-   * 错误跳转地址
-   */
-  errorRedirectUrl = '/';
 
   /**
    * 标识服务端渲染是否完成，没完成则会在client进行渲染加载
@@ -125,7 +129,6 @@ export class RootStore {
     }
 
     e.errorCode = e.errorCode || 'unknown';
-    e.redirectUrl = this.errorRedirectUrl;
     e.handled = true;
 
     return Promise.reject(e);
