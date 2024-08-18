@@ -7,7 +7,7 @@
       // Ensure that Babel can safely transpile files in the TypeScript project
       "isolatedModules": true,
       "allowJs": true,
-      "target": "es5",
+      "target": "ESNext",
       "jsx": "react",
       "noImplicitAny": false,
       "module": "ESNext",

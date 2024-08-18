@@ -18,12 +18,13 @@ interface IAppConfig extends IObj {
 }
 
 interface IAppProps {
-    stores: RootStore[];
+    stores: IObj<RootStore>;
 }
 
-export function appDecorator<T extends RootStore = RootStore>(RootStores: IObj<any>, appConfig: IAppConfig) {
+export function appDecorator<T extends RootStore = RootStore>(Stores: IObj<any>, appConfig: IAppConfig) {
     return (Component: any) => {
         const App = (props: IAppProps) => {
+            console.log('封装组件的props：', props)
             const { stores } = props;
             const storesArr = Object.values(stores);
 
@@ -56,8 +57,8 @@ export function appDecorator<T extends RootStore = RootStore>(RootStores: IObj<a
             ...appConfig
         };
         App.createStores = () => {
-            return Object.keys(RootStores).reduce((result: IObj<T>, key) => {
-              result[key] = new RootStores[key]();
+            return Object.keys(Stores).reduce((result: IObj<T>, key) => {
+              result[key] = new Stores[key]();
               return result;
             }, {});
         }
