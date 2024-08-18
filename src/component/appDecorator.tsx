@@ -24,7 +24,6 @@ interface IAppProps {
 export function appDecorator<T extends RootStore = RootStore>(Stores: IObj<any>, appConfig: IAppConfig) {
     return (Component: any) => {
         const App = (props: IAppProps) => {
-            console.log('封装组件的props：', props)
             const { stores } = props;
             const storesArr = Object.values(stores);
 
