@@ -1,6 +1,6 @@
-const { RootStore } = require('./dist/RootStore');
-const { BaseStore } = require('./dist/BaseStore');
-const { appDecorator } = require('./dist/appDecorator');
+const { RootStore } = require('./lib/store/RootStore');
+const { BaseStore } = require('./lib/store/BaseStore');
+const { appDecorator } = require('./lib/component/appDecorator');
 
 module.exports = {
     BaseRootStore: RootStore,

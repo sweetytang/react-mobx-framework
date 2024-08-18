@@ -1,6 +1,11 @@
 {
     "compilerOptions": {
       "outDir": "./dist",
+      // Ensure that .d.ts files are created by tsc, but not .js files
+    //   "declaration": true,
+    //   "emitDeclarationOnly": true,
+      // Ensure that Babel can safely transpile files in the TypeScript project
+      "isolatedModules": true,
       "allowJs": true,
       "target": "es5",
       "jsx": "react",
@@ -8,7 +13,7 @@
       "module": "ESNext",
       "moduleResolution": "node",
       "sourceMap": true,
-      "noEmit": true,
+      "noEmit": false,
       "experimentalDecorators": true,
       "allowSyntheticDefaultImports": true,
       "paths": {

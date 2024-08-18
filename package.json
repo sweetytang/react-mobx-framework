@@ -5,8 +5,8 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "build": "webpack -c ./build/webpack/webpack.pro.js",
-    "dev": "webpack-dev-server -c ./build/webpack/webpack.dev.js"
+    "build": "babel --extensions .ts,.tsx src --out-dir lib",
+    "tsc": "tsc src/* --watch"
   },
   "peerDependencies": {
     "@babel/runtime": "^7.25.0",
@@ -22,21 +22,12 @@
   "author": "",
   "license": "ISC",
   "devDependencies": {
+    "@babel/cli": "^7.24.8",
     "@babel/core": "^7.25.2",
     "@babel/plugin-proposal-class-properties": "^7.18.6",
     "@babel/plugin-transform-runtime": "^7.24.7",
     "@babel/preset-env": "^7.25.3",
     "@babel/preset-react": "^7.24.7",
-    "@babel/preset-typescript": "^7.24.7",
-    "@types/cookie": "*",
-    "@types/node": "^22.1.0",
-    "@types/qs": "*",
-    "@types/react": "^18.3.3",
-    "@types/ua-parser-js": "*",
-    "babel-loader": "^9.1.3",
-    "typescript": "^5.5.4",
-    "webpack": "^5.93.0",
-    "webpack-cli": "^5.1.4",
-    "webpack-merge": "^6.0.1"
+    "@babel/preset-typescript": "^7.24.7"
   }
 }
