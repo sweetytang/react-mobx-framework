@@ -15,7 +15,8 @@ export function createClientContext() {
     },
 
     get query() {
-      return qs.parse(location.search);
+      const search = location.search ?? '';
+      return qs.parse(search.startsWith('?') ? search.slice(1) : search);
     },
 
     get userAgent() {
