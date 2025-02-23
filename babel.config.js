@@ -3,9 +3,9 @@ module.exports = {
         [
             '@babel/preset-env',
             {
-                targets: "defaults",
                 useBuiltIns: 'usage',
-                corejs: 3
+                corejs: 3,
+                modules: process.env.BABEL_ENV === 'esm' ? false : 'cjs',
             }
         ],
         ['@babel/preset-react'],
@@ -13,6 +13,8 @@ module.exports = {
     ],
     plugins: [
         '@babel/plugin-proposal-class-properties',
+        '@babel/plugin-transform-nullish-coalescing-operator',
+        '@babel/plugin-transform-optional-chaining',
         '@babel/plugin-transform-runtime'
     ],
   }

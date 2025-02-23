@@ -1,9 +1,3 @@
-const { RootStore } = require('./lib/store/RootStore');
-const { BaseStore } = require('./lib/store/BaseStore');
-const { appDecorator } = require('./lib/component/appDecorator');
-
-module.exports = {
-    BaseRootStore: RootStore,
-    BaseStore,
-    appDecorator
-};
+export { RootStore as BaseRootStore } from './esm/store/RootStore';
+export { BaseStore } from './esm/store/BaseStore';
+export { appDecorator } from './esm/component/appDecorator';

@@ -1,30 +1,23 @@
-"use strict";
+import _slicedToArray from "@babel/runtime/helpers/slicedToArray";
+import _classCallCheck from "@babel/runtime/helpers/classCallCheck";
+import _createClass from "@babel/runtime/helpers/createClass";
+import _defineProperty from "@babel/runtime/helpers/defineProperty";
+import _typeof from "@babel/runtime/helpers/typeof";
+import _asyncToGenerator from "@babel/runtime/helpers/asyncToGenerator";
+import _regeneratorRuntime from "@babel/runtime/regenerator";
+import "core-js/modules/es.array.iterator.js";
+import "core-js/modules/es.array.map.js";
+import "core-js/modules/es.array.reduce.js";
+import "core-js/modules/es.object.assign.js";
+import "core-js/modules/es.object.entries.js";
+import "core-js/modules/es.object.keys.js";
+import "core-js/modules/es.object.to-string.js";
+import "core-js/modules/es.promise.js";
+import "core-js/modules/es.string.iterator.js";
+import "core-js/modules/web.dom-collections.iterator.js";
+import { toJS, runInAction, makeObservable, observable, action } from 'mobx';
+import { createClientContext } from '../client/createContext';
 
-require("core-js/modules/es.object.define-property.js");
-var _interopRequireDefault = require("@babel/runtime/helpers/interopRequireDefault");
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.RootStore = void 0;
-var _regenerator = _interopRequireDefault(require("@babel/runtime/regenerator"));
-require("core-js/modules/es.array.iterator.js");
-require("core-js/modules/es.array.map.js");
-require("core-js/modules/es.array.reduce.js");
-require("core-js/modules/es.object.assign.js");
-require("core-js/modules/es.object.entries.js");
-require("core-js/modules/es.object.keys.js");
-require("core-js/modules/es.object.to-string.js");
-require("core-js/modules/es.promise.js");
-require("core-js/modules/es.string.iterator.js");
-require("core-js/modules/web.dom-collections.iterator.js");
-var _slicedToArray2 = _interopRequireDefault(require("@babel/runtime/helpers/slicedToArray"));
-var _classCallCheck2 = _interopRequireDefault(require("@babel/runtime/helpers/classCallCheck"));
-var _createClass2 = _interopRequireDefault(require("@babel/runtime/helpers/createClass"));
-var _defineProperty2 = _interopRequireDefault(require("@babel/runtime/helpers/defineProperty"));
-var _typeof2 = _interopRequireDefault(require("@babel/runtime/helpers/typeof"));
-var _asyncToGenerator2 = _interopRequireDefault(require("@babel/runtime/helpers/asyncToGenerator"));
-var _mobx = require("mobx");
-var _createContext = require("../client/createContext");
 /**
  * 同构化视图数据模型
  *
@@ -42,6 +35,7 @@ var _createContext = require("../client/createContext");
  *   getDatasource -> loadDatasource -> prepareClientData -> finishInitLoading
  *
  */
+
 /**
  * 并行加载数据
  */
@@ -49,9 +43,9 @@ function loadDataParallel(_x, _x2, _x3) {
   return _loadDataParallel.apply(this, arguments);
 }
 function _loadDataParallel() {
-  _loadDataParallel = (0, _asyncToGenerator2.default)(/*#__PURE__*/_regenerator.default.mark(function _callee5(datasource, requestContext, store) {
+  _loadDataParallel = _asyncToGenerator(/*#__PURE__*/_regeneratorRuntime.mark(function _callee5(datasource, requestContext, store) {
     var data;
-    return _regenerator.default.wrap(function _callee5$(_context5) {
+    return _regeneratorRuntime.wrap(function _callee5$(_context5) {
       while (1) switch (_context5.prev = _context5.next) {
         case 0:
           if (!(typeof datasource === 'function')) {
@@ -62,18 +56,18 @@ function _loadDataParallel() {
           return datasource(requestContext, store);
         case 3:
           data = _context5.sent;
-          (0, _mobx.runInAction)(function () {
+          runInAction(function () {
             return Object.assign(store, data);
           });
           return _context5.abrupt("return");
         case 6:
           return _context5.abrupt("return", Promise.all(Object.entries(datasource).map(/*#__PURE__*/function () {
-            var _ref2 = (0, _asyncToGenerator2.default)(/*#__PURE__*/_regenerator.default.mark(function _callee4(_ref) {
+            var _ref2 = _asyncToGenerator(/*#__PURE__*/_regeneratorRuntime.mark(function _callee4(_ref) {
               var _ref3, key, config, loader, data;
-              return _regenerator.default.wrap(function _callee4$(_context4) {
+              return _regeneratorRuntime.wrap(function _callee4$(_context4) {
                 while (1) switch (_context4.prev = _context4.next) {
                   case 0:
-                    _ref3 = (0, _slicedToArray2.default)(_ref, 2), key = _ref3[0], config = _ref3[1];
+                    _ref3 = _slicedToArray(_ref, 2), key = _ref3[0], config = _ref3[1];
                     if (typeof config === 'function') {
                       config = {
                         dump: false,
@@ -85,7 +79,7 @@ function _loadDataParallel() {
                     return Promise.resolve(loader(requestContext, store));
                   case 5:
                     data = _context4.sent;
-                    (0, _mobx.runInAction)(function () {
+                    runInAction(function () {
                       if (config.dump) {
                         Object.assign(store, data);
                       } else {
@@ -114,7 +108,7 @@ function deepAssign(target, source) {
   for (var key in source) {
     if (Object.prototype.hasOwnProperty.call(source, key)) {
       var value = source[key];
-      if ((0, _typeof2.default)(value) === 'object' && value) {
+      if (_typeof(value) === 'object' && value) {
         target[key] = target[key] || (Array.isArray(value) ? [] : {});
         deepAssign(target[key], value);
       } else {
@@ -123,23 +117,23 @@ function deepAssign(target, source) {
     }
   }
 }
-var RootStore = exports.RootStore = /*#__PURE__*/function () {
+export var RootStore = /*#__PURE__*/function () {
   function RootStore() {
     var _this = this;
-    (0, _classCallCheck2.default)(this, RootStore);
+    _classCallCheck(this, RootStore);
     /**
      * 标识服务端渲染是否完成，没完成则会在client进行渲染加载
      */
-    (0, _defineProperty2.default)(this, "isServerRendered", false);
+    _defineProperty(this, "isServerRendered", false);
     /**
      * 是否完成初始化
      */
-    (0, _defineProperty2.default)(this, "isFinishInitLoading", false);
+    _defineProperty(this, "isFinishInitLoading", false);
     /**
      * 从js对象中填充数据，主要用于同构渲染的数据回填
      * @override
      */
-    (0, _defineProperty2.default)(this, "fromJS", function (rawData) {
+    _defineProperty(this, "fromJS", function (rawData) {
       var data;
       try {
         if (rawData) {
@@ -155,18 +149,18 @@ var RootStore = exports.RootStore = /*#__PURE__*/function () {
         deepAssign(_this, data);
       }
     });
-    (0, _mobx.makeObservable)(this, {
-      isServerRendered: _mobx.observable,
-      isFinishInitLoading: _mobx.observable,
-      finishInitLoading: _mobx.action,
-      finishServerRender: _mobx.action,
-      initClientData: _mobx.action,
-      initServerData: _mobx.action,
-      initDataCallback: _mobx.action,
-      prepareClientData: _mobx.action
+    makeObservable(this, {
+      isServerRendered: observable,
+      isFinishInitLoading: observable,
+      finishInitLoading: action,
+      finishServerRender: action,
+      initClientData: action,
+      initServerData: action,
+      initDataCallback: action,
+      prepareClientData: action
     });
   }
-  return (0, _createClass2.default)(RootStore, [{
+  return _createClass(RootStore, [{
     key: "finishInitLoading",
     value:
     /**
@@ -240,13 +234,13 @@ var RootStore = exports.RootStore = /*#__PURE__*/function () {
   }, {
     key: "initClientData",
     value: (function () {
-      var _initClientData = (0, _asyncToGenerator2.default)(/*#__PURE__*/_regenerator.default.mark(function _callee() {
-        return _regenerator.default.wrap(function _callee$(_context) {
+      var _initClientData = _asyncToGenerator(/*#__PURE__*/_regeneratorRuntime.mark(function _callee() {
+        return _regeneratorRuntime.wrap(function _callee$(_context) {
           while (1) switch (_context.prev = _context.next) {
             case 0:
               _context.prev = 0;
               _context.next = 3;
-              return this.initDataCallback((0, _createContext.createClientContext)());
+              return this.initDataCallback(createClientContext());
             case 3:
               this.prepareClientData();
               _context.next = 9;
@@ -273,8 +267,8 @@ var RootStore = exports.RootStore = /*#__PURE__*/function () {
   }, {
     key: "initServerData",
     value: (function () {
-      var _initServerData = (0, _asyncToGenerator2.default)(/*#__PURE__*/_regenerator.default.mark(function _callee2(requestContext) {
-        return _regenerator.default.wrap(function _callee2$(_context2) {
+      var _initServerData = _asyncToGenerator(/*#__PURE__*/_regeneratorRuntime.mark(function _callee2(requestContext) {
+        return _regeneratorRuntime.wrap(function _callee2$(_context2) {
           while (1) switch (_context2.prev = _context2.next) {
             case 0:
               _context2.prev = 0;
@@ -307,7 +301,7 @@ var RootStore = exports.RootStore = /*#__PURE__*/function () {
   }, {
     key: "toJSON",
     value: function toJSON() {
-      return (0, _mobx.toJS)(this);
+      return toJS(this);
     }
   }, {
     key: "loadDatasource",
@@ -316,9 +310,9 @@ var RootStore = exports.RootStore = /*#__PURE__*/function () {
      * 加载数据源
      */
     function () {
-      var _loadDatasource = (0, _asyncToGenerator2.default)(/*#__PURE__*/_regenerator.default.mark(function _callee3(datasource, requestContext) {
+      var _loadDatasource = _asyncToGenerator(/*#__PURE__*/_regeneratorRuntime.mark(function _callee3(datasource, requestContext) {
         var _this2 = this;
-        return _regenerator.default.wrap(function _callee3$(_context3) {
+        return _regeneratorRuntime.wrap(function _callee3$(_context3) {
           while (1) switch (_context3.prev = _context3.next) {
             case 0:
               if (!Array.isArray(datasource)) {
